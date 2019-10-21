@@ -9,6 +9,7 @@ from datetime import timedelta
 import youtube_api
 import youtube_db
 from peewee import *
+import json
 
 
 def analyze_word(mecab, records, limit_count):
@@ -46,15 +47,16 @@ def analyze_word(mecab, records, limit_count):
 
 def main(argvs, argc):
     """Mecabによるチャットの解析"""
-    if argc != 2:
-        print("Usage #python %s video_id1 video_id2 ..." % argvs[0])
+    if argc != 3:
+        print("Usage #python %s channel_id 出力パス" % argvs[0])
         return 1
     channel_id = argvs[1]
+    outpath = argvs[2]
     db = youtube_db.YoutubeDb()
     db.connect('youtube.sqlite')
     mecab = MeCab.Tagger('')
 
-    video_list = youtube_db.Video.select().where(youtube_db.Video.channel_id == channel_id)
+    video_list = youtube_db.Video.select().where(youtube_db.Video.channel_id == channel_id).order_by(youtube_db.Video.published_at)
     result = []
     for video in video_list:
         msg_cnt = []
@@ -103,6 +105,9 @@ def main(argvs, argc):
                 words = words + w['word'] + '(' + str(w['count']) + ') /'
             
             print (h['start'] / 1000, ',' , h['count'], ',', words)
+
+    with open(outpath, mode='w', encoding='utf8') as fp:
+        json.dump(result, fp, sort_keys = True, indent = 4)
 
 if __name__ == '__main__':
     argvs = sys.argv

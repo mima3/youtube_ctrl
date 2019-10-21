@@ -10,4 +10,10 @@ urllib3                       1.25.3
 python youtube_ctrl.py video/channel api_key video_id/channel_id
 
 チャンネルのライブチャットの解析
-python youtube_statistics.py チャンネルID
+python youtube_statistics.py チャンネルID 出力先JSONファイル
+
+WordPressの追加
+python post_wordpress.py URL ユーザ名 パスワード ブログタイトル json
+
+WordPressの更新
+python update_wordpress.py URL ユーザ名 パスワード ブログタイトル ブログID json
