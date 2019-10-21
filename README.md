@@ -18,6 +18,7 @@ python post_wordpress.py URL ユーザ名 パスワード ブログタイトル 
 WordPressの更新
 python update_wordpress.py URL ユーザ名 パスワード ブログタイトル ブログID json
 
+
 参考  
 https://developers.google.com/youtube/v3/docs/search/list?hl=ja  
 https://support.google.com/youtube/forum/AAAAiuErobU8A1V4NqExIE/?hl=en&gpf=%23!topic%2Fyoutube%2F8A1V4NqExIE  
