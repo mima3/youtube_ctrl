@@ -7,9 +7,9 @@
     <tr>
       <th>動画</th>
       <th>合計</th>
-      <th>1分間<br>平均</th>
-      <th>1分間<br>中央値</th>
-      <th>1分間<br>分散</th>
+      <th>平均</th>
+      <th>中央値</th>
+      <th>分散</th>
     </tr>
     {% for item in json_data %}
         <tr>

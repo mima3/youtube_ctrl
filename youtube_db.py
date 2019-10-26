@@ -53,7 +53,7 @@ class YoutubeDb:
         """時間ごとのヒストグラムを作成"""
         max_time = LiveChatMessage.select(
             fn.MAX(LiveChatMessage.offset_time_msec)
-        ).where(LiveChatMessage.video_id == video_id).scalar()
+        ).where(LiveChatMessage.video_id == video_id & (LiveChatMessage.offset_time_msec <= 86400000)).scalar()
         if max_time is None:
             return []
         tmp_start = 0
@@ -73,9 +73,11 @@ class YoutubeDb:
 
     def get_histogram_all(self, video_id, interval_msec):
         """時間ごとのヒストグラムを作成"""
+        # 24時間を超えた時間は恐らく異常値なので排除する
+        # AjgwZNS4QUEで発生
         max_time = LiveChatMessage.select(
             fn.MAX(LiveChatMessage.offset_time_msec)
-        ).where(LiveChatMessage.video_id == video_id).scalar()
+        ).where((LiveChatMessage.video_id == video_id) & (LiveChatMessage.offset_time_msec <= 86400000)).scalar()
         if max_time is None:
             return []
         tmp_start = 0

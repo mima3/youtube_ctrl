@@ -66,6 +66,8 @@ def main(argvs, argc):
             continue
         for item in items:
             msg_cnt.append(item['count'])
+        if len(msg_cnt) <= 2:
+            continue
         ret = {
             'id' : video.video_id,
             'title' : video.title,
